@@ -36,48 +36,84 @@ const Onboarding = () => {
       <View style={styles.header}>
         <Image source={require("../assets/Logo.png")} resizeMode="contain" />
       </View>
-      <TextInput
-        style={styles.input}
-        placeholder="Name"
-        value={firstName}
-        onChangeText={setName}
-      />
-      <TextInput
-        style={styles.input}
-        placeholder="Last Name"
-        value={lastName}
-        onChangeText={setLastName}
-      />
-      <TextInput
-        style={styles.input}
-        placeholder="Email"
-        keyboardType="email-address"
-        value={email}
-        onChangeText={setEmail}
-      />
-      <Pressable
-        style={({ pressed }) => [
-          styles.buttonStyle,
-          !isFirstNameValid || !isLastNameValid || !isEmailValid
-            ? styles.buttonDisabled
-            : {},
-          pressed && styles.buttonPressed, // Добавьте этот стиль, если нужно изменить стиль при нажатии
-        ]}
-        onPress={handleNextPress}
-        disabled={!isFirstNameValid || !isLastNameValid || !isEmailValid}
-      >
-        <Text style={styles.buttonText}>Next</Text>
-      </Pressable>
+      <View style={styles.heroSection}>
+        <Text style={styles.heroHeader}>Little Lemon</Text>
+        <View style={styles.heroBody}>
+          <View style={styles.heroSection}>
+            <View style={styles.heroBody}>
+              <View style={styles.heroContent}>
+                <Text style={styles.heroHeader2}>Chicago</Text>
+                <Text style={styles.heroText}>
+                  We are a family owned Mediterranean restaurant, focused on
+                  traditional recipes served with a modern twist.
+                </Text>
+              </View>
+              <Image
+                style={styles.heroImage}
+                source={require("../assets/HeroImage.png")}
+                accessible={true}
+                accessibilityLabel={"Little Lemon Food"}
+              />
+            </View>
+          </View>
+        </View>
+      </View>
+
+      <View style={styles.inputContainer}>
+        <Text style={styles.text}>First Name*</Text>
+
+        <TextInput
+          style={styles.input}
+          placeholder="Name"
+          value={firstName}
+          onChangeText={setName}
+        />
+        <Text style={styles.text}>Last Name*</Text>
+
+        <TextInput
+          style={styles.input}
+          placeholder="Last Name"
+          value={lastName}
+          onChangeText={setLastName}
+        />
+        <Text style={styles.text}>Email*</Text>
+
+        <TextInput
+          style={styles.input}
+          placeholder="Email"
+          keyboardType="email-address"
+          value={email}
+          onChangeText={setEmail}
+        />
+        <Pressable
+          style={({ pressed }) => [
+            styles.buttonStyle,
+            !isFirstNameValid || !isLastNameValid || !isEmailValid
+              ? styles.buttonDisabled
+              : {},
+            pressed && styles.buttonPressed, // Добавьте этот стиль, если нужно изменить стиль при нажатии
+          ]}
+          onPress={handleNextPress}
+          disabled={!isFirstNameValid || !isLastNameValid || !isEmailValid}
+        >
+          <Text style={styles.buttonText}>Next</Text>
+        </Pressable>
+      </View>
     </View>
   );
 };
 
 const styles = StyleSheet.create({
   container: {
-    flex: 1,
+    flex: 3,
     backgroundColor: "#fff",
     paddingTop: 40,
-    alignItems: "center",
+  },
+  inputContainer: {
+    flex: 2,
+    backgroundColor: "#fff",
+    paddingVertical: 20,
+    paddingHorizontal: 20,
   },
   header: {
     width: "100%",
@@ -92,7 +128,6 @@ const styles = StyleSheet.create({
   },
   input: {
     height: 40,
-    width: "80%",
     marginVertical: 10,
     borderWidth: 1,
     borderColor: "#ddd",
@@ -100,7 +135,6 @@ const styles = StyleSheet.create({
     borderRadius: 5,
   },
   buttonStyle: {
-    width: 300,
     padding: 10,
     borderRadius: 9,
     margin: 10,
@@ -118,6 +152,40 @@ const styles = StyleSheet.create({
   buttonPressed: {
     borderRadius: 9,
     backgroundColor: "3f554d",
+  },
+  heroSection: {
+    flex: 1,
+    backgroundColor: "#495e57",
+    padding: 15,
+  },
+  heroHeader: {
+    color: "#f4ce14",
+    fontSize: 44,
+  },
+  heroHeader2: {
+    color: "#fff",
+    fontSize: 20,
+  },
+  heroText: {
+    color: "#fff",
+    paddingTop: 10,
+    fontSize: 14,
+  },
+  heroBody: {
+    flexDirection: "row",
+    justifyContent: "space-between",
+  },
+
+  heroContent: {
+    flex: 1,
+  },
+  heroImage: {
+    width: 100,
+    height: 100,
+    borderRadius: 12,
+  },
+  text: {
+    paddingTop: 15,
   },
 });
 
