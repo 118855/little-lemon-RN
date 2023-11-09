@@ -18,6 +18,7 @@ const Profile = () => {
     firstName: "",
     lastName: "",
     email: "",
+    phoneNumber: "",
   });
   const [discard, setDiscard] = useState(false);
 
@@ -41,6 +42,14 @@ const Profile = () => {
     }
   };
 
+  const validateNumber = (number) => {
+    if (isNaN(number)) {
+      return false;
+    } else if (number.length == 10) {
+      return true;
+    }
+  };
+
   const { update } = useContext(AuthContext);
   const { logout } = useContext(AuthContext);
 
@@ -55,7 +64,8 @@ const Profile = () => {
     return (
       !validateName(profile.firstName) &&
       !validateName(profile.lastName) &&
-      validateEmail(profile.email)
+      validateEmail(profile.email) &&
+      validateNumber(profile.phoneNumber)
     );
   };
 
@@ -107,6 +117,14 @@ const Profile = () => {
           keyboardType="email-address"
           onChangeText={(newValue) => updateProfile("email", newValue)}
           placeholder={"Email"}
+        />
+        <Text style={styles.text}>Phone number</Text>
+        <TextInput
+          style={styles.inputBox}
+          value={profile.phoneNumber}
+          keyboardType="phone-pad"
+          onChangeText={(newValue) => updateProfile("phoneNumber", newValue)}
+          placeholder={"Phone number"}
         />
 
         <Pressable style={styles.btn} onPress={() => logout()}>

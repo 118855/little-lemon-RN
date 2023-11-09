@@ -46,6 +46,7 @@ const Home = ({ navigation }) => {
     firstName: "",
     lastName: "",
     email: "",
+    phoneNumber: "",
   });
 
   const [data, setData] = useState([]);
