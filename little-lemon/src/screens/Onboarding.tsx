@@ -10,9 +10,12 @@ import {
 } from "react-native";
 import { AuthContext } from "../contexts/AuthContext";
 
-import { validateEmail, validateName } from "../utils";
+import { validateEmail, validateName } from "../../utils";
+import { useTheme } from "../../src/contexts/ThemeComtext";
 
 const Onboarding = () => {
+  const theme = useTheme();
+
   const [firstName, setName] = useState("");
   const [lastName, setLastName] = useState("");
   const [email, setEmail] = useState("");
@@ -34,7 +37,7 @@ const Onboarding = () => {
   return (
     <View style={styles.container}>
       <View style={styles.header}>
-        <Image source={require("../assets/Logo.png")} resizeMode="contain" />
+        <Image source={theme.images.logoImage} resizeMode="contain" />
       </View>
       <View style={styles.heroSection}>
         <Text style={styles.heroHeader}>Little Lemon</Text>
@@ -50,7 +53,7 @@ const Onboarding = () => {
               </View>
               <Image
                 style={styles.heroImage}
-                source={require("../assets/HeroImage.png")}
+                source={theme.images.heroImage}
                 accessible={true}
                 accessibilityLabel={"Little Lemon Food"}
               />

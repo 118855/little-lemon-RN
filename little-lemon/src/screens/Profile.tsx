@@ -9,11 +9,14 @@ import {
   ScrollView,
   TouchableOpacity,
 } from "react-native";
-import { validateEmail } from "../utils";
+import { validateEmail } from "../../utils";
 import { AuthContext } from "../contexts/AuthContext";
 import AsyncStorage from "@react-native-async-storage/async-storage";
+import { useTheme } from "../../src/contexts/ThemeComtext";
 
 const Profile = () => {
+  const theme = useTheme();
+
   const [profile, setProfile] = useState({
     firstName: "",
     lastName: "",
@@ -26,7 +29,7 @@ const Profile = () => {
     (async () => {
       try {
         const getProfile = await AsyncStorage.getItem("profile");
-        setProfile(JSON.parse(getProfile));
+        setProfile(JSON.parse(getProfile!));
         setDiscard(false);
       } catch (e) {
         console.error(e);
@@ -34,7 +37,7 @@ const Profile = () => {
     })();
   }, [discard]);
 
-  const validateName = (name) => {
+  const validateName = (name: string) => {
     if (name.length > 0) {
       return name.match(/[^a-zA-Z]/);
     } else {
@@ -42,10 +45,11 @@ const Profile = () => {
     }
   };
 
-  const validateNumber = (number) => {
+  const validateNumber = (number: any) => {
+    console.log("number", number);
     if (isNaN(number)) {
       return false;
-    } else if (number.length == 10) {
+    } else if (number.length === 10) {
       return true;
     }
   };
@@ -53,7 +57,7 @@ const Profile = () => {
   const { update } = useContext(AuthContext);
   const { logout } = useContext(AuthContext);
 
-  const updateProfile = (key, value) => {
+  const updateProfile = (key: any, value: any) => {
     setProfile((prevState) => ({
       ...prevState,
       [key]: value,
@@ -76,20 +80,18 @@ const Profile = () => {
         <Text style={styles.text}>Avatar</Text>
         <View style={styles.avatarContainer}>
           <Image
-            source={require("../assets/Profile.png")}
+            source={theme.images.profileImage}
             style={styles.avatarImage}
           />
           <View style={styles.avatarButtons}>
             <TouchableOpacity
               style={styles.changeBtn}
-              title="Pick an image from camera roll"
               onPress={() => console.log("remove")}
             >
               <Text style={styles.saveBtnText}>Change</Text>
             </TouchableOpacity>
             <TouchableOpacity
               style={styles.removeBtn}
-              title="Pick an image from camera roll"
               onPress={() => console.log("remove")}
             >
               <Text style={styles.discardBtnText}>Remove</Text>
@@ -135,7 +137,10 @@ const Profile = () => {
             <Text style={styles.discardBtnText}>Discard changes</Text>
           </Pressable>
           <Pressable
-            style={[styles.saveBtn, getIsFormValid() ? "" : styles.btnDisabled]}
+            style={[
+              styles.saveBtn,
+              getIsFormValid() ? null : styles.btnDisabled,
+            ]}
             onPress={() => update(profile)}
             disabled={!getIsFormValid()}
           >
