@@ -1,10 +1,13 @@
 import React from "react";
 import { View, StyleSheet, Image } from "react-native";
+import { useTheme } from "../../src/contexts/ThemeComtext";
 
 const SplashScreen = () => {
+  const theme = useTheme();
+
   return (
     <View style={styles.container}>
-      <Image style={styles.logo} source={require("../assets/Logo.png")} />
+      <Image style={styles.logo} source={theme.images.logoImage} />
     </View>
   );
 };
